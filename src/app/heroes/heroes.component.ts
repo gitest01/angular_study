@@ -16,6 +16,7 @@ export class HeroesComponent implements OnInit {
   isSpecial = true;
 
   heroes = HEROES;
+  selectedHero: Hero;
 
   constructor() {}
 
@@ -27,4 +28,9 @@ export class HeroesComponent implements OnInit {
     // this.isSpecial = !this.isSpecial; // toggle
   }
 
+  onSelect(hero: Hero): void {
+    console.log(hero);
+    this.selectedHero = hero;
+  }
 }
+
