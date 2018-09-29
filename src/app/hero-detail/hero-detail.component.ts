@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Hero} from '../hero';
 import {ActivatedRoute} from '@angular/router';
+import {HeroService} from '../hero.service';
 
 @Component({
   selector: 'app-hero-detail',
@@ -12,16 +13,22 @@ export class HeroDetailComponent implements OnInit {
   @Input()
   selectedHero: Hero;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private heroService: HeroService) {
     console.log('hero detail Created')
     // /heroes/:hero_id 의 hero_id가 바뀔때 생성자는 한번만 호출
-    // subscibe 콜백은 데이터가 들어올때마다 호출
+    // subscribe 콜백은 데이터가 들어올때마다 호출
     this.route.params
-      .subscribe(params => {
-        console.log(params);
-        // hero_id를 획득 후 서비스를 통해서 데이터를 얻어서
+      .subscribe(param => {
+        console.log(param);
+        // hero_id를 획득후 서비스를 통해서 데이터를 얻어서
         // selectedHero에 대입
+        this.getHero(+param.hero_id); // +는 스트링을 숫자로 변환
       });
+  }
+
+  getHero(hero_id: number) {
+    this.heroService.getHero(hero_id)
+      .subscribe(data => this.selectedHero = data);
   }
 
   ngOnInit() {
