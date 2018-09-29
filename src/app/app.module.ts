@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'heroes', component: HeroesComponent, children: [
       {path: ':hero_id', component: HeroDetailComponent}
     ]},
-  {path: 'todo', component: TodoComponent}
+  {path: 'todo', component: TodoComponent},
 ];
 
 @NgModule({
