@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Hero} from '../hero';
-import {HEROES} from '../mock-heroes';
+import {HeroService} from '../hero.service';
 
 @Component({
   selector: 'app-heroes',
@@ -15,10 +15,17 @@ export class HeroesComponent implements OnInit {
 
   isSpecial = true;
 
-  heroes = HEROES;
+  heroes: Hero[];
   selectedHero: Hero;
 
-  constructor() {
+  // 2. 생성자로 이미 등록된 heroService 인스턴스를 주입 받는다.
+  // => DI (dependancy Injection)
+  constructor(private heroService: HeroService) {
+    // 의존성 있게 코딩하는 경우
+    // const heroService = new HeroService();
+    // this.heroes = heroService.getHeroes();
+
+    this.heroes = this.heroService.getHeroes();
   }
 
   ngOnInit() {
